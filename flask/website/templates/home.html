@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+
+{% block content %}
+
+<div class="search-container">
+    <form action="/" method="get">
+    <input type="text" name="q" id="search-bar" placeholder="Search for a game...">
+    <button type="button" class="search-button" onclick="searchGame()">Search</button>
+    </form>
+</div>
+
+<p id="message" style="color: red; display: none;">Game Not Found</p>
+
+
+<div class="game-list">
+    {% for game in games %}
+    <div class="game-card">
+        <!-- Game Image -->
+        <div class="game-image">
+            <img src="{{ url_for('static', filename='images/' + game.image_url) }}" alt="{{ game.title }}" style="width: 200px; height: 200px; margin-bottom: 10px;">
+        </div>
+
+        <!-- Game Details -->
+        <div class="game-details" style="background-color: #A27B5C;">
+            <h3>{{ game.title }}</h3>
+            <p class="game-overview">{{ game.description }}</p>
+            <p><strong>Players:</strong> {{ game.players }}</p>
+            <p><strong>Rating:</strong> {{ game.rating }}%</p>
+
+            <div class="buttons">
+                <button class="btn">Add to Collection</button>
+                <a href="{{ url_for('static', filename='pdfs/' + game.rules_pdf) }}" class="btn" download>Download Rules</a>
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+    {% endfor %}
+</div>
+{% endblock %}
