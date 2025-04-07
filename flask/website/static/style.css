@@ -1,0 +1,237 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-container {
+    display: flex;              /* Aligns items horizontally */
+    align-items: center;        /* Vertically centers items */
+    gap: 10px;                  /* Adds space between the search bar and button */
+}
+
+#search-bar {
+    padding: 10px;
+    font-size: 25px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    width: 1000px;               /* Adjust width as needed */
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 27px;
+    background-color: #343a40;
+    color: white;
+    border: 2px solid #A27B5C;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.apptitle {
+    font-size: 45px;
+    color: #A27B5C;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #2C3930;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    padding: 1rem;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+
+
+}
+
+
+.container {
+    padding: 2rem;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.game-card {
+    background-color: #A27B5C;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.game-image img {
+     height: 5px;
+     width: 5px;             /* Set the height of the image */         /* Ensures the image covers the box, maintaining aspect ratio */
+    border-radius: 8px;         /* Optional: gives the image rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow around the image */
+    transition: transform 0.3s ease-in-out; /* Optional: adds a smooth hover effect */
+}
+
+.game-image img:hover {
+    transform: scale(1.5); /* Optional: slightly enlarge the image on hover */
+}
+
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button, .btn {
+    background-color: #343a40;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #2C3930;
+}
+
+.error {
+    color: red;
+    margin-top: 0.5rem;
+}
+
+.game-detail {
+    background-color: #A27B5C;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 700px;
+    margin: auto;
+    text-align: center;
+}
+
+.rating {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+}
+
+.star {
+    color: #ccc;
+}
+
+.star.filled {
+    color: gold;
+}
+
+
+.game-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.contain {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */           /* Ensures the container takes the full height of the viewport */
+    background-color: #2C3930; /* Optional: adds a background color */
+}
+
+.contain img {
+    max-width: 90%;  /* Makes sure the image resizes well */
+    height: auto;    /* Maintains aspect ratio */
+}
+
+/* footer */
+.footer {
+    background-color: #343a40;
+    padding: 30px 20px;
+    margin-top: 50px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .footer-left h3 {
+    margin-bottom: 10px;
+    color: #A27B5C;
+  }
+  
+  .footer-left p {
+    color: #A27B5C;
+    font-size: 14px;
+  }
+  
+  .footer-center ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-center li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .footer-center a {
+    text-decoration: none;
+    color: #A27B5C;
+    font-weight: 500;
+  }
+  
+  .footer-center a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-right p {
+    margin-bottom: 10px;
+    color: #A27B5C;
+  }
+  
+  .social-icons a img {
+    width: 24px;
+    margin: 0 5px;
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+  }
+  
+  .social-icons a img:hover {
+    filter: none;
+  }
+  
