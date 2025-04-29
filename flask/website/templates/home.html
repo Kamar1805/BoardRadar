@@ -14,7 +14,37 @@
 
 
 <div class="game-list">
-    {% for game in games %}
+    {% for game in games[:4] %}
+    <div class="game-card">
+        <!-- Game Image -->
+        <div class="game-image">
+            <img src="{{ url_for('static', filename='images/' + game.image_url) }}" alt="{{ game.title }}" style="width: 200px; height: 200px; margin-bottom: 10px;">
+        </div>
+
+        <!-- Game Details -->
+        <div class="game-details" style="background-color: #A27B5C;">
+            <h3>{{ game.title }}</h3>
+            <p class="game-overview">{{ game.description }}</p>
+            <p><strong>Players:</strong> {{ game.players }}</p>
+            <p><strong>Rating:</strong> {{ game.rating }}%</p>
+
+            <div class="buttons">
+                <button class="btn">Add to Collection</button>
+                <a href="{{ url_for('static', filename='pdfs/' +  game.rules_pdf) }}" class="btn" download>Download Rules</a>
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+    {% endfor %}
+</div>
+<div class="see-more-container">
+    <button class="see-more-btn" onclick="toggleGames()">See More</button>
+
+</div>
+
+<div class="more-games">
+    {% for game in games[4:] %}
     <div class="game-card">
         <!-- Game Image -->
         <div class="game-image">
@@ -37,5 +67,22 @@
 
     <br> <br>
     {% endfor %}
+   
 </div>
+
+<script>
+    function toggleGames() {
+  const gameList = document.querySelector('.game-list');
+  const btn = document.querySelector('.see-more-btn');
+  gameList.classList.toggle('open');
+  
+  if (gameList.classList.contains('open')) {
+    btn.textContent = "See Less";
+  } else {
+    btn.textContent = "See More";
+  }
+}
+
+</script>
 {% endblock %}
+

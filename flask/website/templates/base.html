@@ -18,10 +18,17 @@
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
-    <h1 style="text-align: center; margin-bottom: 80px; font-size: 50px; color: #A27B5C;">BoardRadar</h1>
-    <div class="contain">
+
+    <div class="logo-section">
+      <div class="dice left-dice"></div>
         <img src="{{ url_for('static', filename='images/new.png' ) }}" class="logom" alt="{{ 'game-list' }}" style="width: 200px; height: 200px; margin-bottom: 10px; text-align: center;">
+        <div class="dice right-dice"></div> <br>
+       
     </div>
+    <h1 class="rainbow-title">
+      <span>B</span><span>o</span><span>a</span><span>r</span><span>d</span> <span>-</span>
+      <span>R</span><span>a</span><span>d</span><span>a</span><span>r</span>
+    </h1>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #A27B5C;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" >
@@ -32,6 +39,7 @@
             
             {% if user.is_authenticated%}
             <a class="nooo" id="home" href="/" style="color: #A27B5C; margin-top: 57px; font-size: 30px;" >Home</a>
+            <a class="nooo" id="collection" href="/collection" style="color: #A27B5C; margin-top: 57px; font-size: 30px;" >My Collection</a>
             <a class="nooo" id="logout" href="/logout" style="color: #A27B5C; margin-top: 57px; font-size: 30px;">Logout</a>
             {% else%}
             <a class="nooo" id="login" href="/login" style="color: #A27B5C; margin-top: 57px;">Login</a>
@@ -40,26 +48,17 @@
           </div>
         </div>
       </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div id="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-      {% with messages = get_flashed_messages(with_categories=true) %} 
-      {% if messages %} 
-      {% for category, message in messages %} 
-      {% if category =='error' %}
-        <div class="alert alert-danger alter-dismissable fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {% else %}
-        <div class="alert alert-success alter-dismissable fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {% endif %} {% endfor %} {% endif %}
-      {% endwith %}
+      
 
       <div class="container"> {% block content %} <h1>Board Games Collection </h1>{% endblock %}</div>
 
@@ -106,7 +105,60 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+  <script>
+    setTimeout(() => {
+      const flash = document.getElementById('flash-messages');
+      if (flash) {
+        flash.style.opacity = '0';
+        setTimeout(() => {
+          flash.style.display = 'none';
+        }, 500); // wait for fade-out animation
+      }
+    }, 3000); // disappears after 3 seconds
+  </script>
+  <div id="loader" style="display: none;">
+    <img src="/static/images/dicee.png" alt="Loading..." class="dice-spinner">
+    
+  </div>
 
-
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('loader');
+  
+      // Show loader when clicking internal links
+      document.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', function (e) {
+          const href = link.getAttribute('href');
+          
+          // Skip anchors and external links
+          if (href.startsWith('#') || href.startsWith('http')) return;
+  
+          e.preventDefault(); // prevent immediate navigation
+          loader.style.display = 'flex'; // show the dice loader
+  
+          // Delay the actual navigation
+          setTimeout(() => {
+            window.location.href = href; // navigate to the link
+          }, 1000); // 1-second delay
+        });
+      });
+  
+      // Show loader on form submission
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault(); // stop immediate form submission
+          loader.style.display = 'flex'; // show the dice loader
+  
+          // Delay form submission
+          setTimeout(() => {
+            form.submit(); // submit the form after 1 second
+          }, 1000); // 1-second delay
+        });
+      });
+    });
+  </script>
+  
+  
 </body>
 </html>
