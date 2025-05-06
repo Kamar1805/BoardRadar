@@ -5,6 +5,7 @@ from .models import User
 from .import db
 from flask_bcrypt import Bcrypt, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
+from flask import session
 
 auth = Blueprint('auth', __name__)
 
@@ -12,23 +13,29 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
 @auth.route('/login', methods=['GET', 'POST'])
+
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if   user:
+        if user:
             if check_password_hash(user.password, password):
-                flash('Logged  in successfully!', category='success')
+                flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
+                
+                # Add this line to store the first name in the session
+                session['first_name'] = user.first_name
+                
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect Login  Credentials, try again.', category='error')
+                flash('Incorrect Login Credentials, try again.', category='error')
         else:
             flash('Email does not exist', category='error')
-   
+
     return render_template("login.html", user=current_user)
+
 
 @auth.route('/logout')
 @login_required
@@ -66,6 +73,6 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for('auth.login'))
 
     return render_template("sign_up.html", user=current_user)

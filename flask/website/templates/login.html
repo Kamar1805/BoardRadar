@@ -1,8 +1,16 @@
-{% extends "base.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body class="no-footer">
+  {% extends "base.html" %} 
 {% block title %}Login Page{% endblock %} 
 
 {% block content %}
-<form method="POST">
+<form id="login-form" method="POST">
     <h3 align="center">Login </h3>
     <div class="form-group">
       <label for="email">Email Address</label>
@@ -27,6 +35,9 @@
     </div>
     
     <br />
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Login</button> <br> <br>
+    <h3> Don't have an account yet? <a href="{{ url_for('auth.sign_up') }}">Sign Up</a></h3>
   </form>
 {% endblock %}
+</body>
+</html>

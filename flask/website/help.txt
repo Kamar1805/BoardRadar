@@ -1,0 +1,159 @@
+Step 1: Model Setup (models.py)
+Here, we will create a model to represent the collection of games for each user. This model will create a many-to-many relationship between users and games (each user can have many games, and each game can belong to many users).
+
+python
+Copy
+Edit
+# models.py
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+# User model (assuming you have this for user authentication)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+
+    # Relationship to collection
+    collection = db.relationship('Game', secondary='user_game', backref='users')
+
+# Game model (assuming this exists for your games)
+class Game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    image_url = db.Column(db.String(150))
+
+# Association table for many-to-many relationship (User to Game)
+class UserGame(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'), nullable=False)
+Step 2: Views (views.py)
+Now we will define the necessary views to handle adding/removing games from the collection and displaying the user’s collection.
+
+1. Adding a Game to Collection
+We will create a route where a user can add a game to their collection. The game will be added to the UserGame table to establish the many-to-many relationship.
+
+python
+Copy
+Edit
+# views.py
+
+from flask import Flask, render_template, redirect, url_for, request, flash
+from models import db, User, Game, UserGame
+
+@app.route('/add-to-collection/<int:game_id>', methods=['POST'])
+@login_required  # Assuming user needs to be logged in
+def add_to_collection(game_id):
+    user = current_user  # Get the current logged-in user
+
+    # Check if the game is already in the collection
+    existing_game = UserGame.query.filter_by(user_id=user.id, game_id=game_id).first()
+
+    if not existing_game:
+        # Add game to collection (create new association in UserGame table)
+        new_game = UserGame(user_id=user.id, game_id=game_id)
+        db.session.add(new_game)
+        db.session.commit()
+
+        flash('Game added to your collection!')
+    else:
+        flash('This game is already in your collection.')
+
+    return redirect(url_for('index'))  # Redirect to the homepage or wherever
+2. Removing a Game from Collection
+We’ll also need a route where users can remove games from their collection.
+
+python
+Copy
+Edit
+@app.route('/remove-from-collection/<int:game_id>', methods=['POST'])
+@login_required
+def remove_from_collection(game_id):
+    user = current_user  # Get the current logged-in user
+
+    # Find the game in the user's collection
+    game_to_remove = UserGame.query.filter_by(user_id=user.id, game_id=game_id).first()
+
+    if game_to_remove:
+        db.session.delete(game_to_remove)
+        db.session.commit()
+        flash('Game removed from your collection.')
+    else:
+        flash('This game is not in your collection.')
+
+    return redirect(url_for('my_collection'))  # Redirect to collection page
+3. Displaying the Collection Page
+Now we’ll create the route to display the user’s collection of games.
+
+python
+Copy
+Edit
+@app.route('/my-collection')
+@login_required
+def my_collection():
+    user = current_user  # Get the current logged-in user
+
+    # Get all the games in the user's collection
+    collection_games = user.collection  # This uses the relationship defined in User model
+
+    return render_template('my_collection.html', games=collection_games)
+Step 3: HTML Templates
+You’ll need two templates: one for the My Collection page and one for the game card add/remove buttons.
+
+1. My Collection Page (my_collection.html)
+This page will display all the games in the user’s collection and allow them to remove games.
+
+html
+Copy
+Edit
+<!-- my_collection.html -->
+
+<h1>Your Game Collection</h1>
+
+<div class="game-list">
+    {% for game in games %}
+    <div class="game-card">
+        <div class="game-image">
+            <img src="{{ url_for('static', filename='images/' + game.image_url) }}" alt="{{ game.title }}" style="width: 200px; height: 200px;">
+        </div>
+
+        <div class="game-details">
+            <h3>{{ game.title }}</h3>
+            <p>{{ game.description }}</p>
+            <p><strong>Rating:</strong> {{ game.rating }}%</p>
+
+            <!-- Button to remove game from collection -->
+            <form action="{{ url_for('remove_from_collection', game_id=game.id) }}" method="POST">
+                <button type="submit" class="btn">Remove from Collection</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('index') }}">Back to Home</a>
+2. Game Card Add Button
+On your game list (index page or wherever the game cards are shown), you can add an “Add to Collection” button.
+
+html
+Copy
+Edit
+<!-- Example within your game list page -->
+<form action="{{ url_for('add_to_collection', game_id=game.id) }}" method="POST">
+    <button type="submit" class="btn">Add to Collection</button>
+</form>
+Step 4: Database Setup & Initialization
+Make sure your database is set up and that the models are migrated correctly:
+
+bash
+Copy
+Edit
+flask db init   # If you haven't done this before
+flask db migrate
+flask db upgrade

@@ -2,7 +2,12 @@
 {% block title %}Home{% endblock %} 
 
 {% block content %}
-
+{% if current_user.is_authenticated %}
+<div class="greeting-container">
+    <span class="greeting-text">Hi {{ session['first_name'] }}</span>
+    <img src="{{ url_for('static', filename='images/wave.svg') }}" alt="Waving Hand" class="waving-hand-icon">
+</div>
+{% endif %}
 <div class="search-container">
     <form action="/" method="get">
     <input type="text" name="q" id="search-bar" placeholder="Search for a game...">
@@ -29,7 +34,9 @@
             <p><strong>Rating:</strong> {{ game.rating }}%</p>
 
             <div class="buttons">
-                <button class="btn">Add to Collection</button>
+                <form action="{{ url_for('views.add_to_collection', game_id=game['game_id']) }}" method="POST">
+                    <button type="submit" class="btn">Add to Collection</button>
+                </form>
                 <a href="{{ url_for('static', filename='pdfs/' +  game.rules_pdf) }}" class="btn" download>Download Rules</a>
             </div>
         </div>
@@ -59,7 +66,10 @@
             <p><strong>Rating:</strong> {{ game.rating }}%</p>
 
             <div class="buttons">
-                <button class="btn">Add to Collection</button>
+                <form action="{{ url_for('views.add_to_collection', game_id=game['game_id']) }}" method="POST">
+                    <button type="submit" class="btn">Add to Collection</button>
+                </form>
+                
                 <a href="{{ url_for('static', filename='pdfs/' + game.rules_pdf) }}" class="btn" download>Download Rules</a>
             </div>
         </div>
@@ -72,16 +82,26 @@
 
 <script>
     function toggleGames() {
-  const gameList = document.querySelector('.game-list');
-  const btn = document.querySelector('.see-more-btn');
-  gameList.classList.toggle('open');
-  
-  if (gameList.classList.contains('open')) {
-    btn.textContent = "See Less";
-  } else {
-    btn.textContent = "See More";
-  }
+    const gameList = document.getElementById("gameList");
+    const seeMoreButton = document.querySelector(".see-more-btn");
+    const seeMoreContainer = document.querySelector(".see-more-container");
+
+    // Toggle visibility of more games
+    gameList.classList.toggle("show-more");
+
+    // Move the button to the end of the game list and change the text
+    if (gameList.classList.contains("show-more")) {
+        seeMoreButton.textContent = "See Less";
+        // Append the button after the game list
+        seeMoreContainer.style.marginTop = "20px";  // Optional, tweak margin if needed
+    } else {
+        seeMoreButton.textContent = "See More";
+        // Reset margin if needed
+        seeMoreContainer.style.marginTop = "0px";  // Optional, adjust if necessary
+    }
 }
+
+
 
 </script>
 {% endblock %}

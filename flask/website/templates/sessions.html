@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Sessions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e2b20;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #2e3c2f;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        h1, h2 {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: wheat;
+        }
+        label, select, button, input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            color: wheat;
+        }
+        select, input {
+            background-color: #3d4f3d;
+            color: #f0f0f0;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .session-list {
+            margin-top: 30px;
+        }
+        .session-item {
+            background-color: #3d4f3d;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .timer {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .rules-section {
+            padding: 20px;
+            background-color: wheat;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #gameSelect {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #viewRules {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #viewRules:hover {
+            background-color: #45a049;
+        }
+
+        #pdfViewer {
+            margin-top: 20px;
+            width: 100%;
+            height: 500px;
+            border: none;
+            background-color: wheat;
+        }
+
+        /* Custom Loader Style */
+        .loader {
+            width: 50px;
+            height: 50px;
+            background-image: url('/flask/website/static/images/'); /* Use your custom icon here */
+            background-size: cover;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide loader initially */
+        .loader-container {
+            display: none;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    {% extends "base.html" %} 
+{% block title %}Sessions Page{% endblock %} 
+
+{% block content %}
+    <div class="container">
+        <h1>Track Sessions</h1>
+        <select id="gameSelect">
+            <option value="">-- Select Game --</option>
+            <!-- 20 predefined games -->
+            <option value="Catan">Catan</option>
+            <option value="Chess">Chess</option>
+            <option value="Carcassonne">Carcassonne</option>
+            <option value="Pandemic">Pandemic</option>
+            <option value="7 Wonders">7 Wonders</option>
+            <option value="Dominion">Dominion</option>
+            <option value="Azul">Azul</option>
+            <option value="Terraforming Mars">Terraforming Mars</option>
+            <option value="Wingspan">Wingspan</option>
+            <option value="Splendor">Splendor</option>
+            <option value="Scythe">Scythe</option>
+            <option value="Gloomhaven">Gloomhaven</option>
+            <option value="Root">Root</option>
+            <option value="Brass: Birmingham">Brass: Birmingham</option>
+            <option value="Twilight Struggle">Twilight Struggle</option>
+            <option value="Agricola">Agricola</option>
+            <option value="Blood Rage">Blood Rage</option>
+            <option value="The Crew">The Crew</option>
+            <option value="Great Western Trail">Great Western Trail</option>
+            <option value="Concordia">Concordia</option>
+        </select>
+
+        <!-- Board Game Rules Section -->
+        <div class="rules-section">
+            <button id="viewRules" onclick="viewSelectedRules()">View Rules (PDF)</button>
+
+            <!-- PDF Viewer -->
+            <iframe id="pdfViewer" style="width:100%; height:250px;" frameborder="0"></iframe>
+        </div>
+
+        <br>
+        <select id="playerCount">
+            <option value="">-- Select No. of Players --</option>
+            <script>
+                for (let i = 1; i <= 10; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select>
+        <br>
+
+
+        <button id="startSession">Start Session</button>
+        <div class="timer" id="timer">Session not started</div>
+        <button id="endSession">End Session</button>
+        <button id="saveSession">Save Session</button>
+        <button id="deleteSession">Delete Session</button>
+        <!-- Loader Icon (hidden initially) -->
+ <div class="loader-container" id="loaderContainer">
+    <div class="loader"></div>
+</div>
+
+    </div>
+    <h2>My Sessions</h2>
+        <div class="session-list" id="sessionList"></div>
+
+        <script>
+            let timerInterval;
+            let startTime;
+        
+            function viewSelectedRules() {
+                var selectedGame = document.getElementById('gameSelect').value;
+                var pdfViewer = document.getElementById('pdfViewer');
+        
+                if (selectedGame) {
+                    var url = '{{ url_for("views.view_rules", game_name="") }}' + selectedGame;
+                    pdfViewer.src = url;
+                } else {
+                    alert('Please select a game first.');
+                }
+            }
+        
+            document.getElementById('startSession').addEventListener('click', () => {
+                startTime = new Date();
+                timerInterval = setInterval(() => {
+                    const now = new Date();
+                    const elapsed = new Date(now - startTime);
+                    const h = String(elapsed.getUTCHours()).padStart(2, '0');
+                    const m = String(elapsed.getUTCMinutes()).padStart(2, '0');
+                    const s = String(elapsed.getUTCSeconds()).padStart(2, '0');
+                    document.getElementById('timer').textContent = `Duration: ${h}:${m}:${s}`;
+                }, 1000);
+            });
+        
+            document.getElementById('endSession').addEventListener('click', () => {
+                clearInterval(timerInterval);
+                document.getElementById('timer').textContent += ' (Session Ended)';
+            });
+        
+            document.getElementById('deleteSession').addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete the current session (not saved)?')) {
+                    clearInterval(timerInterval);
+                    startTime = null;
+                    document.getElementById('timer').textContent = 'Session not started';
+                }
+            });
+        
+            function saveSessionToLocalStorage(sessionData) {
+                let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+                sessions.push(sessionData);
+                localStorage.setItem('sessions', JSON.stringify(sessions));
+            }
+        
+            function loadSessionsFromLocalStorage() {
+                const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+                const sessionList = document.getElementById('sessionList');
+                sessionList.innerHTML = '';
+        
+                sessions.forEach(session => {
+                    const sessionItem = document.createElement('div');
+                    sessionItem.className = 'session-item';
+                    sessionItem.innerHTML = `
+                        <div>
+                            <strong>${session.sessionName}</strong><br>
+                            Game: ${session.game}, Date: ${session.date}, Players: ${session.players}, ${session.duration}
+                        </div>
+                        <button class="deleteStoredSession">Delete</button>
+                    `;
+        
+                    sessionList.appendChild(sessionItem);
+        
+                    sessionItem.querySelector('.deleteStoredSession').addEventListener('click', () => {
+                        if (confirm('Are you sure you want to delete this session?')) {
+                            deleteSessionFromLocalStorage(session.sessionName);
+                            sessionItem.remove();
+                        }
+                    });
+                });
+            }
+        
+            function deleteSessionFromLocalStorage(sessionName) {
+                let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+                sessions = sessions.filter(session => session.sessionName !== sessionName);
+                localStorage.setItem('sessions', JSON.stringify(sessions));
+            }
+        
+            document.getElementById('saveSession').addEventListener('click', () => {
+                const game = document.getElementById('gameSelect').value;
+                const players = document.getElementById('playerCount').value;
+                const duration = document.getElementById('timer').textContent;
+        
+                if (!game || !players || !startTime) {
+                    alert('Please make sure you started and ended a session first.');
+                    return;
+                }
+        
+                const sessionName = prompt('Enter a name for this session:');
+                if (sessionName) {
+                    const date = startTime.toLocaleDateString();
+        
+                    const sessionData = {
+                        sessionName: sessionName,
+                        game: game,
+                        date: date,
+                        players: players,
+                        duration: duration
+                    };
+        
+                    saveSessionToLocalStorage(sessionData);
+                    loadSessionsFromLocalStorage();
+        
+                    startTime = null;
+                    document.getElementById('timer').textContent = 'Session not started';
+                }
+            });
+        
+            window.addEventListener('DOMContentLoaded', loadSessionsFromLocalStorage);
+
+            let playerIdCounter = 1;
+const players = [];
+
+document.getElementById('addPlayerBtn').addEventListener('click', function() {
+    const playerDiv = document.createElement('div');
+    playerDiv.innerHTML = `
+        <input type="text" placeholder="Player Name" id="player-${playerIdCounter}" />
+    `;
+    document.getElementById('playerInputs').appendChild(playerDiv);
+    players.push(`player-${playerIdCounter}`);
+    playerIdCounter++;
+});
+
+document.getElementById('saveGameBtn').addEventListener('click', function() {
+    const enteredPlayers = players.map(id => {
+        const name = document.getElementById(id).value.trim();
+        return name ? { id, name } : null;
+    }).filter(p => p);
+
+    if (enteredPlayers.length < 2) {
+        alert('Please add at least two players.');
+        return;
+    }
+
+    let winnerName = prompt(
+        `Who won? Enter one of: ${enteredPlayers.map(p => p.name).join(', ')}`
+    );
+    if (!enteredPlayers.some(p => p.name === winnerName)) {
+        alert('Invalid winner name.');
+        return;
+    }
+
+    const now = new Date();
+    const date = now.toLocaleDateString();
+    const time = now.toLocaleTimeString();
+
+    const session = {
+        players: enteredPlayers,
+        winner: winnerName,
+        date,
+        time,
+        duration: calculateSessionDuration()  // You need to implement this tracking
+    };
+
+    saveSession(session);
+});
+
+let sessionStartTime;
+
+function startSession() {
+    sessionStartTime = new Date();
+}
+
+function calculateSessionDuration() {
+    const endTime = new Date();
+    const diffMs = endTime - sessionStartTime;
+    const minutes = Math.floor(diffMs / 60000);
+    const seconds = Math.floor((diffMs % 60000) / 1000);
+    return `${minutes}m ${seconds}s`;
+}
+
+            
+        </script>
+        
+{% endblock %}
+</body>
+</html>
+
+  
