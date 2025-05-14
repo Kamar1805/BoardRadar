@@ -1,1 +1,1 @@
-web: gunicorn flask.main:app
+web: PYTHONPATH=flask.website gunicorn main:app
