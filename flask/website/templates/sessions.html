@@ -123,6 +123,114 @@
             text-align: center;
         }
 
+        .styled-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #1b4332; /* dark green base */
+    border: 2px solid #52b788; /* lighter green border */
+    border-radius: 12px;
+    color: transparent;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(45deg, #52b788, #74c69d, #d8f3dc, #74c69d, #52b788);
+    animation: gradientMove 3s linear infinite;
+}
+
+.styled-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(82, 183, 136, 0.1);
+    transition: background 0.3s ease;
+    z-index: -1;
+    border-radius: 12px;
+}
+
+.styled-button:hover {
+    border-color: #95d5b2;
+    color: #d8f3dc;
+    background: #2d6a4f;
+}
+
+.styled-button:hover::before {
+    background: rgba(82, 183, 136, 0.3);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.play-games-section h2 {
+    text-align: center;
+    color: wheat;
+    margin-top: 40px;
+}
+
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.game-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3d4f3d;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.game-item:hover {
+    transform: translateY(-5px);
+}
+
+.game-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d8f3dc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background-image: linear-gradient(45deg, #52b788, #74c69d, #d8f3dc);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.game-link:hover {
+    color: #b7e4c7;
+}
+
+@media (max-width: 600px) {
+    .game-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .game-link {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .styled-button {
+        width: 100%;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -135,26 +243,16 @@
         <select id="gameSelect">
             <option value="">-- Select Game --</option>
             <!-- 20 predefined games -->
-            <option value="Catan">Catan</option>
             <option value="Chess">Chess</option>
+            <option value="Catan">Catan</option>
+            <option value="Scrabble">Scrabble</option>
             <option value="Carcassonne">Carcassonne</option>
-            <option value="Pandemic">Pandemic</option>
-            <option value="7 Wonders">7 Wonders</option>
+            <option value="Ludo">Ludo</option>
+            <option value="Monopoly">Monopoly</option>
             <option value="Dominion">Dominion</option>
             <option value="Azul">Azul</option>
-            <option value="Terraforming Mars">Terraforming Mars</option>
-            <option value="Wingspan">Wingspan</option>
-            <option value="Splendor">Splendor</option>
-            <option value="Scythe">Scythe</option>
-            <option value="Gloomhaven">Gloomhaven</option>
-            <option value="Root">Root</option>
-            <option value="Brass: Birmingham">Brass: Birmingham</option>
-            <option value="Twilight Struggle">Twilight Struggle</option>
-            <option value="Agricola">Agricola</option>
-            <option value="Blood Rage">Blood Rage</option>
-            <option value="The Crew">The Crew</option>
-            <option value="Great Western Trail">Great Western Trail</option>
-            <option value="Concordia">Concordia</option>
+            <option value="Checkers">Checkers</option>
+            <option value="Pandemic">Pandemic</option>
         </select>
 
         <!-- Board Game Rules Section -->
@@ -175,8 +273,8 @@
             </script>
         </select>
         <br>
-
-
+        
+        
         <button id="startSession">Start Session</button>
         <div class="timer" id="timer">Session not started</div>
         <button id="endSession">End Session</button>
@@ -186,10 +284,36 @@
  <div class="loader-container" id="loaderContainer">
     <div class="loader"></div>
 </div>
-
     </div>
     <h2>My Sessions</h2>
         <div class="session-list" id="sessionList"></div>
+
+    <!-- Add this after your existing content -->
+<div class="container play-games-section">
+    <h2>Play Games</h2>
+    <div class="games-list">
+        <div class="game-item">
+            <a href="https://www.chess.com/play/online" target="_blank" class="game-link">Chess</a>
+            <a href="https://www.chess.com/play/online" target="_blank" class="styled-button">Play</a>
+        </div>
+        <div class="game-item">
+            <a href="https://playscrabble.com/" target="_blank" class="game-link">Scrabble</a>
+            <a href="https://playscrabble.com/" target="_blank" class="styled-button">Play</a>
+        </div>
+        <div class="game-item">
+            <a href="https://en.gameslol.net/monopoly-1122.html" target="_blank" class="game-link">Monopoly</a>
+            <a href="https://en.gameslol.net/monopoly-1122.html" target="_blank" class="styled-button">Play</a>
+        </div>
+        <div class="game-item">
+            <a href="https://cardgames.io/checkers/" target="_blank" class="game-link">Checkers</a>
+            <a href="https://cardgames.io/checkers/" target="_blank" class="styled-button">Play</a>
+        </div>
+        <div class="game-item">
+            <a href="https://ludoking.com/play/" target="_blank" class="game-link">Ludo</a>
+            <a href="https://ludoking.com/play/" target="_blank" class="styled-button">Play</a>
+        </div>
+    </div>
+</div>
 
         <script>
             let timerInterval;
@@ -364,7 +488,7 @@ function calculateSessionDuration() {
     return `${minutes}m ${seconds}s`;
 }
 
-            
+
         </script>
         
 {% endblock %}

@@ -4,181 +4,91 @@ games = [
             'title': 'Chess',
             'description': 'A classic game of strategy and wisdom.',
             'players': '2 players',
-            'rating': 85,
+            'rating': 99,
             'image_url': 'chess.jpg',  # The image file should be in the 'static/images/' folder
-            'rules_pdf': 'CHESS.pdf'  # The PDF file should be in 'static/pdfs/' folder
+            'rules_pdf': 'Chess.pdf'  # The PDF file should be in 'static/pdfs/' folder
         },
         {
             'game_id': 200,
             'title': 'Monopoly',
             'description': 'A game of real estate and business.',
             'players': '2-6 players',
-            'rating': 90,
+            'rating': 97,
             'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Monopoly.pdf'
         },
         {
             'game_id': 300,
             'title': 'Scrabble',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
+            'description': 'Form words with letter tiles on a board. Highest score wins.',
+            'players': '2-4 players',
+            'rating': 75,
             'image_url': 'scrabble.jpeg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Scrabble.pdf'
         },
         {
             'game_id': 400,
             'title': 'Checkers',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'description': 'Move pieces diagonally to jump and capture opponent’s pieces.',
+            'players': '2 players',
             'rating': 90,
             'image_url': 'checkers.jpeg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Checkers.pdf'
         },
         {
             'game_id': 500,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Ludo',
+            'description': 'Race your four tokens around the board to reach home first.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Ludo.jpeg',
+            'rules_pdf': 'Ludo.pdf'
         },
         {
             'game_id': 600,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'title': 'Catan',
+            'description': 'Collect resources, build settlements, and trade to reach 10 points.',
+            'players': '3-4 players',
+            'rating': 85,
+            'image_url': 'Catan.jpeg',
+            'rules_pdf': 'Catan.pdf'
         },
         {
             'game_id': 700,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'dicee.png',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'title': 'Carcassonne',
+            'description': 'Place tiles to build roads, cities, and farms. Score by placing meeples.',
+            'players': '2-5 players',
+            'rating': 70,
+            'image_url': 'Carcassonne.jpeg',
+            'rules_pdf': 'Carcassonne.pdf'
         },
         {
             'game_id': 800,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Azul',
+            'description': 'Draft colorful tiles and arrange them to complete patterns and score.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Azul.jpeg',
+            'rules_pdf': 'Azul.pdf'
         },
         {
             'game_id': 900,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Pandemic',
+            'description': 'Work together to stop 4 diseases from spreading worldwide.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Pandemic.jpeg',
+            'rules_pdf': 'Pandemic.pdf'
         },
         {
             'game_id': 1000,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1100,
-            'title': 'Lebronnnnn',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1200,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1300,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1400,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1500,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1600,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1700,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1800,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-         {
-             'game_id': 1900,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-         {
-             'game_id': 2000,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        }      
+            'title': 'Dominion',
+            'description': 'Build a deck of cards to gain the most victory points.',
+            'players': '2-4 players',
+            'rating': 80,
+            'image_url': 'Dominion.jpeg',
+            'rules_pdf': 'Dominion.pdf'
+        }
     ]
 
 
@@ -215,181 +125,91 @@ def home():
             'title': 'Chess',
             'description': 'A classic game of strategy and wisdom.',
             'players': '2 players',
-            'rating': 85,
+            'rating': 99,
             'image_url': 'chess.jpg',  # The image file should be in the 'static/images/' folder
-            'rules_pdf': 'CHESS.pdf'  # The PDF file should be in 'static/pdfs/' folder
+            'rules_pdf': 'Chess.pdf'  # The PDF file should be in 'static/pdfs/' folder
         },
         {
             'game_id': 200,
             'title': 'Monopoly',
             'description': 'A game of real estate and business.',
             'players': '2-6 players',
-            'rating': 90,
+            'rating': 97,
             'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Monopoly.pdf'
         },
         {
             'game_id': 300,
             'title': 'Scrabble',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
+            'description': 'Form words with letter tiles on a board. Highest score wins.',
+            'players': '2-4 players',
+            'rating': 75,
             'image_url': 'scrabble.jpeg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Scrabble.pdf'
         },
         {
             'game_id': 400,
             'title': 'Checkers',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'description': 'Move pieces diagonally to jump and capture opponent’s pieces.',
+            'players': '2 players',
             'rating': 90,
             'image_url': 'checkers.jpeg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'rules_pdf': 'Checkers.pdf'
         },
         {
             'game_id': 500,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Ludo',
+            'description': 'Race your four tokens around the board to reach home first.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Ludo.jpeg',
+            'rules_pdf': 'Ludo.pdf'
         },
         {
             'game_id': 600,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'title': 'Catan',
+            'description': 'Collect resources, build settlements, and trade to reach 10 points.',
+            'players': '3-4 players',
+            'rating': 85,
+            'image_url': 'Catan.jpeg',
+            'rules_pdf': 'Catan.pdf'
         },
         {
             'game_id': 700,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'dicee.png',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'title': 'Carcassonne',
+            'description': 'Place tiles to build roads, cities, and farms. Score by placing meeples.',
+            'players': '2-5 players',
+            'rating': 70,
+            'image_url': 'Carcassonne.jpeg',
+            'rules_pdf': 'Carcassonne.pdf'
         },
         {
             'game_id': 800,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Azul',
+            'description': 'Draft colorful tiles and arrange them to complete patterns and score.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Azul.jpeg',
+            'rules_pdf': 'Azul.pdf'
         },
         {
             'game_id': 900,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
+            'title': 'Pandemic',
+            'description': 'Work together to stop 4 diseases from spreading worldwide.',
+            'players': '2-4 players',
             'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
+            'image_url': 'Pandemic.jpeg',
+            'rules_pdf': 'Pandemic.pdf'
         },
         {
             'game_id': 1000,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1100,
-            'title': 'Lebronnnnn',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1200,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1300,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1400,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1500,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1600,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1700,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-        {
-            'game_id': 1800,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-         {
-             'game_id': 1900,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        },
-         {
-             'game_id': 2000,
-            'title': 'Monopoly',
-            'description': 'A game of real estate and business.',
-            'players': '2-6 players',
-            'rating': 90,
-            'image_url': 'monopoly.jpg',
-            'rules_pdf': 'monopoly_rules.pdf'
-        }      
+            'title': 'Dominion',
+            'description': 'Build a deck of cards to gain the most victory points.',
+            'players': '2-4 players',
+            'rating': 80,
+            'image_url': 'Dominion.jpeg',
+            'rules_pdf': 'Dominion.pdf'
+        }
     ]
 
     session['games'] = games
@@ -515,3 +335,7 @@ def view_rules(game_name):
         return send_from_directory(os.path.join('static', 'rules'), f'{game_name}.pdf')
     except FileNotFoundError:
         return "PDF not found!", 404
+    
+@views.route('/chess')
+def chess():
+    return render_template('chess.html', user=current_user)

@@ -37,7 +37,7 @@
                 <form action="{{ url_for('views.add_to_collection', game_id=game['game_id']) }}" method="POST">
                     <button type="submit" class="btn">Add to Collection</button>
                 </form>
-                <a href="{{ url_for('static', filename='pdfs/' +  game.rules_pdf) }}" class="btn" download>Download Rules</a>
+                <a href="{{ url_for('static', filename='rules/' +  game.rules_pdf) }}" class="btn" download>Download Rules</a>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                     <button type="submit" class="btn">Add to Collection</button>
                 </form>
                 
-                <a href="{{ url_for('static', filename='pdfs/' + game.rules_pdf) }}" class="btn" download>Download Rules</a>
+                <a href="{{ url_for('static', filename='rules/' + game.rules_pdf) }}" class="btn" download>Download Rules</a>
             </div>
         </div>
     </div>
